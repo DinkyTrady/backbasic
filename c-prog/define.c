@@ -3,7 +3,7 @@
 
 // define is key to create
 // constant variable so it can't
-// be redifne or change value
+// be redifne or change the value
 #define PHI 3.14f
 
 int main(int argc, char *argv[]) {
