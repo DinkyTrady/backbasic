@@ -19,12 +19,15 @@ int main() {
 
   struct termios oldt, newt;
   int scores = 0;
-  int x = 5;
-  int y = 5;
   char input;
   unsigned char inputState = 0;
 
-  // always randomize position of the food
+  /*
+   * always randomize position of 
+   * the player and fruit when first time play
+   */
+  int playerX = rand() % SIZE;
+  int playerY = rand() % SIZE;
   int fruitY = rand() % SIZE;
   int fruitX = rand() % SIZE;
 
@@ -54,14 +57,14 @@ int main() {
      */
     for (int row = 0; row < SIZE; row++) {
       for (int col = 0; col < SIZE; col++) {
-        if (row == y && col == x) printf(" ");
+        if (row == playerY && col == playerX) printf(" ");
         else if (row == fruitY && col == fruitX) printf(" ");
         else printf(". ");
       }
       printf("\n");
     }
 
-    printf("Posisi: (%d, %d)\nScore: (%d)\n", x, y, scores);
+    printf("Posisi: (%d, %d)\nScore: (%d)\n", playerX, playerY, scores);
     printf("WASD untuk bergerak (q untuk exit): " );
     
     input = getchar();
@@ -84,15 +87,17 @@ int main() {
      * with a bitwise operations and logical operations
      * checking the size of the `x` and `y`
      */
-    if (inputState & MOVE_UP && y > 0) y--;
-    if (inputState & MOVE_LEFT && x > 0) x--;
-    if (inputState & MOVE_DOWN && y < SIZE - 1) y++;
-    if (inputState & MOVE_RIGHT && x < SIZE - 1) x++;
+    if (inputState & MOVE_UP && playerY > 0) playerY--;
+    if (inputState & MOVE_LEFT && playerX > 0) playerX--;
+    if (inputState & MOVE_DOWN && playerY < SIZE - 1) playerY++;
+    if (inputState & MOVE_RIGHT && playerX < SIZE - 1) playerX++;
 
     // get the new position of the food and increases scores
-    if (x == fruitX && y == fruitY) {
-      fruitX = rand() % SIZE;
-      fruitY = rand() % SIZE;
+    if (playerX == fruitX && playerY == fruitY) {
+      do {
+        fruitX = rand() % SIZE;
+        fruitY = rand() % SIZE;
+      } while (playerX == fruitX && playerY == fruitY);
 
       scores++;
     }
