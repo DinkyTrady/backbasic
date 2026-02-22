@@ -12,6 +12,7 @@
 #define MOVE_LEFT (1 << 1)
 #define MOVE_DOWN (1 << 2)
 #define MOVE_RIGHT (1 << 3)
+#define RESTART (1 << 4)
 
 int main() {
   // to made random number
@@ -82,6 +83,8 @@ int main() {
     if (input == 'w') inputState |= MOVE_UP;
     if (input == 's') inputState |= MOVE_DOWN;
 
+    if (input == 'r') inputState |= RESTART;
+
     /*
      * Doing the movement for user
      * with a bitwise operations and logical operations
@@ -91,6 +94,8 @@ int main() {
     if (inputState & MOVE_LEFT && playerX > 0) playerX--;
     if (inputState & MOVE_DOWN && playerY < SIZE - 1) playerY++;
     if (inputState & MOVE_RIGHT && playerX < SIZE - 1) playerX++;
+
+    if (inputState & RESTART) scores = 0;
 
     // get the new position of the food and increases scores
     if (playerX == fruitX && playerY == fruitY) {
