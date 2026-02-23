@@ -66,7 +66,7 @@ int main() {
     }
 
     printf("Posisi: (%d, %d)\nScore: (%d)\n", playerX, playerY, scores);
-    printf("WASD untuk bergerak (q untuk exit): " );
+    printf("WASD untuk bergerak (q untuk exit dan r untuk reset): " );
     
     input = getchar();
 
